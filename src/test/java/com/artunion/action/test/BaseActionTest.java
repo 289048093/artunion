@@ -14,6 +14,7 @@ package com.artunion.action.test;
 public abstract class BaseActionTest {
     
     public void aTest(){
+        
     }
 
 }
