@@ -22,7 +22,7 @@ import com.artunion.util.LogUtil;
  * @param <T>
  *            BaseVO的子类
  */
-public class CloudContext<T extends BaseVO> {
+public class ArtUnionContext<T extends BaseVO> {
     /**
      * 其他参数
      */
@@ -56,7 +56,7 @@ public class CloudContext<T extends BaseVO> {
     /**
      * 默认构造方法
      */
-    protected CloudContext(){
+    protected ArtUnionContext(){
 
     }
 

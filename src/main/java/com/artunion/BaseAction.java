@@ -71,7 +71,7 @@ public abstract class BaseAction<T extends BaseVO> extends ActionSupport {
     /**
      * CloudContext上下文，用来存放所有请求和响应的容器
      */
-    protected CloudContext<T> cloudContext = new CloudContext<T>();
+    protected ArtUnionContext<T> cloudContext = new ArtUnionContext<T>();
 
     /**
      * 构造方法
@@ -195,7 +195,7 @@ public abstract class BaseAction<T extends BaseVO> extends ActionSupport {
      * 
      * @return
      */
-    public CloudContext<T> getCloudContext() {
+    public ArtUnionContext<T> getCloudContext() {
         return cloudContext;
     }
 }

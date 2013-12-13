@@ -17,7 +17,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.stereotype.Service;
 
 import com.artunion.BaseService;
-import com.artunion.CloudContext;
+import com.artunion.ArtUnionContext;
 import com.artunion.LoginedUser;
 import com.artunion.dao.ResetUserPasswordDAO;
 import com.artunion.dao.RightsDAO;
@@ -53,7 +53,7 @@ public class UserService extends BaseService {
      * @param cloudContext
      * @exception exc
      */
-    public void logout(CloudContext<UserVO> cloudContext) {
+    public void logout(ArtUnionContext<UserVO> cloudContext) {
 
     }
 
@@ -64,7 +64,7 @@ public class UserService extends BaseService {
      * @throws SQLException
      * @throws Exception
      */
-    public void login(CloudContext<UserVO> cloudContext) throws SQLException {
+    public void login(ArtUnionContext<UserVO> cloudContext) throws SQLException {
         // 得到用户输入的姓名、密码及验证码
         String username = cloudContext.getVo().getUsername();
         UserEntity loginUser = null;
@@ -98,7 +98,7 @@ public class UserService extends BaseService {
      * @throws SQLException
      * @throws Exception
      */
-    public void addRegister(CloudContext<UserVO> cloudContext) throws SQLException {
+    public void addRegister(ArtUnionContext<UserVO> cloudContext) throws SQLException {
         // 判断注册用户名是否已经存在
 
         UserEntity userEntity = userDAO.findUserByUsername(cloudContext.getVo().getUsername());
@@ -129,7 +129,7 @@ public class UserService extends BaseService {
     /**
      * @param cloudContext
      */
-    public void query(CloudContext<UserVO> cloudContext) {
+    public void query(ArtUnionContext<UserVO> cloudContext) {
         // TODO Auto-generated method stub
 
     }
@@ -137,7 +137,7 @@ public class UserService extends BaseService {
     /**
      * 找回密码
      */
-    public void retrievePwd(CloudContext<UserVO> cloudContext) {
+    public void retrievePwd(ArtUnionContext<UserVO> cloudContext) {
         // TODO Auto-generated method stub
 
     }
@@ -147,7 +147,7 @@ public class UserService extends BaseService {
      * 
      * @throws SQLException
      */
-    public void initRegister(CloudContext<UserVO> cloudContext) throws SQLException {
+    public void initRegister(ArtUnionContext<UserVO> cloudContext) throws SQLException {
         // 用户名判断
         String username = cloudContext.getVo().getUsername();
         UserEntity userEntity = userDAO.findUserByUsername(username);
@@ -160,7 +160,7 @@ public class UserService extends BaseService {
      * @param cloudContext
      * @throws SQLException
      */
-    public void addUserInfo(CloudContext<UserVO> cloudContext) throws SQLException {
+    public void addUserInfo(ArtUnionContext<UserVO> cloudContext) throws SQLException {
         UserEntity userEntity = userDAO.findUserByUsername(cloudContext.getVo().getUsername());
         if (userEntity != null) {
             cloudContext.addErrorMsg("您已经修改过了，请勿重复提交");
@@ -190,7 +190,7 @@ public class UserService extends BaseService {
      * @param cloudContext
      * @throws SQLException
      */
-    public void findByEmail(CloudContext<UserVO> cloudContext) throws SQLException {
+    public void findByEmail(ArtUnionContext<UserVO> cloudContext) throws SQLException {
         String email = cloudContext.getVo().getEmail();
         UserEntity userEntity = userDAO.findUserByEmail(email);
         cloudContext.addParam("emailExist", userEntity != null);
@@ -202,7 +202,7 @@ public class UserService extends BaseService {
      * @param cloudContext
      * @throws SQLException
      */
-    public void addResetPassword(CloudContext<UserVO> cloudContext) throws SQLException {
+    public void addResetPassword(ArtUnionContext<UserVO> cloudContext) throws SQLException {
         String checkCode = cloudContext.getStringParam("checkCode");
         // 验证码
         String verifyCode = cloudContext.getStringParam(Constant.VERIFY_CODE);
@@ -237,7 +237,7 @@ public class UserService extends BaseService {
                                                 + key), email, true);
     }
 
-    public void initUpdateResetPassword(CloudContext<UserVO> cloudContext) throws SQLException {
+    public void initUpdateResetPassword(ArtUnionContext<UserVO> cloudContext) throws SQLException {
         String key = cloudContext.getStringParam("key");
         ResetUserPasswordEntity rupe = resetUserPasswordDAO.findByKey(key);
         if (rupe == null) {
@@ -253,7 +253,7 @@ public class UserService extends BaseService {
      * @param cloudContext
      * @throws SQLException
      */
-    public void updateResetPassword(CloudContext<UserVO> cloudContext) throws SQLException {
+    public void updateResetPassword(ArtUnionContext<UserVO> cloudContext) throws SQLException {
         String key = cloudContext.getStringParam("key");
         ResetUserPasswordEntity rupe = resetUserPasswordDAO.findByKey(key);
         if (rupe == null) {
@@ -276,7 +276,7 @@ public class UserService extends BaseService {
      * @throws SQLException
      * @throws BeansException
      */
-    public void center(CloudContext<UserVO> cloudContext) throws BeansException, SQLException {
+    public void center(ArtUnionContext<UserVO> cloudContext) throws BeansException, SQLException {
         LoginedUser loginedUser = (LoginedUser) ServletActionContext.getRequest().getSession().getAttribute(
                 Constant.LOGINED_USER);
         if (loginedUser == null) {
@@ -293,7 +293,7 @@ public class UserService extends BaseService {
      * @param cloudContext
      * @throws SQLException
      */
-    public void updateCenter(CloudContext<UserVO> cloudContext) throws SQLException {
+    public void updateCenter(ArtUnionContext<UserVO> cloudContext) throws SQLException {
         // 通过id从数据库判断是否有该用户
         UserEntity userEntity = userDAO.get(cloudContext.getVo().getId());
         if (userEntity == null) {
@@ -315,7 +315,7 @@ public class UserService extends BaseService {
         cloudContext.addSuccessMsg("更新成功");
     }
 
-    public void updatePassword(CloudContext<UserVO> cloudContext) throws SQLException {
+    public void updatePassword(ArtUnionContext<UserVO> cloudContext) throws SQLException {
         Long id = cloudContext.getLoginedUser().getId();
         UserEntity user = userDAO.get(id);
         if (user == null) {
