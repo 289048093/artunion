@@ -273,7 +273,7 @@ public final class PropertyManager {
      * @param key
      * @return
      */
-    public String getXMLProperty(String key) {
+    public synchronized String getXMLProperty(String key) {
         if (xmlProperty.get(key) == null) {
             try {
                 SAXReader reader = new SAXReader(false);
