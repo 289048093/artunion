@@ -265,7 +265,7 @@ public final class PropertyManager {
             keyElement.setText(value.trim());
             saveXmlProperties();
         }
-    }
+    } 
 
     /**
      * 获取XML属性
