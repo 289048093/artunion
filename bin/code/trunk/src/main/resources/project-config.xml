@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 文件名建议 改成项目真实名字 -->
+<artunion>
+	<!-- 多个半角逗号分割 ，支持*通配符-->
+	<excludeAuthUrls>
+		/userManager/user!register.action,/userManager/user!login.action
+	</excludeAuthUrls>
+	<artunionHome>D:/root/artunion_Home</artunionHome>
+	<userDataDir>userData</userDataDir>
+	<webserviceIP>192.168.23.2</webserviceIP>
+	<webservicePort>8889</webservicePort>
+</artunion>
