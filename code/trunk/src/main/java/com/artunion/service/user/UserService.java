@@ -83,7 +83,6 @@ public class UserService extends BaseService {
 
         LoginedUser loginUserVO = new LoginedUser();
         BeanUtils.copyProperties(loginUser, loginUserVO);
-        loginUserVO.setCompany(loginUser.getCompany());
         cloudContext.addParam(Constant.LOGINED_USER, loginUserVO);
 
         cloudContext.setLoginedUser(loginUserVO);
@@ -113,9 +112,8 @@ public class UserService extends BaseService {
             userEntity.setUsername(cloudContext.getVo().getUsername());
             userEntity.setId(cloudContext.getVo().getId());
             userEntity.setTelPhone(cloudContext.getVo().getTelPhone());
-            userEntity.setCompany(cloudContext.getVo().getCompany());
             Date date = new Date();
-            userEntity.setAddTime(date);
+            userEntity.setAddDate(date);
             userEntity.setStatus(Constant.USER_NORMAL_STATE);
             userEntity.setPassword(StringUtil.encrypt(cloudContext.getVo().getUsername(), cloudContext.getVo()
                     .getPassword()));
@@ -154,35 +152,6 @@ public class UserService extends BaseService {
         cloudContext.addParam("usernameExist", userEntity != null);
     }
 
-    /**
-     * 校外用户完善个人信息
-     * 
-     * @param cloudContext
-     * @throws SQLException
-     */
-    public void addUserInfo(ArtUnionContext<UserVO> cloudContext) throws SQLException {
-        UserEntity userEntity = userDAO.findUserByUsername(cloudContext.getVo().getUsername());
-        if (userEntity != null) {
-            cloudContext.addErrorMsg("您已经修改过了，请勿重复提交");
-            return;
-        }
-        userEntity = new UserEntity();
-        userEntity.setAddr(cloudContext.getVo().getAddr());
-        userEntity.setEmail(cloudContext.getVo().getEmail());
-        userEntity.setMobilePhone(cloudContext.getVo().getMobilePhone());
-        userEntity.setRealname(cloudContext.getVo().getRealname());
-        userEntity.setSex(cloudContext.getVo().getSex());
-        userEntity.setUsername(cloudContext.getVo().getUsername());
-        userEntity.setId(cloudContext.getVo().getId());
-        userEntity.setTelPhone(cloudContext.getVo().getTelPhone());
-        userEntity.setCompany(cloudContext.getVo().getCompany());
-        Date date = new Date();
-        userEntity.setAddTime(date);
-        userEntity.setStatus(Constant.USER_NORMAL_STATE);
-        userEntity.setPassword("-");
-        userDAO.insert(userEntity);
-        cloudContext.addSuccessMsg("操作成功");
-    }
 
     /**
      * 验证邮箱是否被使用
@@ -305,7 +274,6 @@ public class UserService extends BaseService {
         }
         userEntity.setSex(cloudContext.getVo().getSex());
         userEntity.setAddr(cloudContext.getVo().getAddr());
-        userEntity.setCompany(cloudContext.getVo().getCompany());
         userEntity.setEmail(cloudContext.getVo().getEmail());
         userEntity.setRealname(cloudContext.getVo().getRealname());
         userEntity.setMobilePhone(cloudContext.getVo().getMobilePhone());

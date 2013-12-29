@@ -23,7 +23,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.artunion.BaseAction;
-import com.artunion.LoginedUser;
 import com.artunion.service.user.UserService;
 import com.artunion.util.Constant;
 import com.artunion.util.ProjectUtil;
@@ -68,10 +67,6 @@ public class UserAction extends BaseAction<UserVO> {
 	 */
 	@Resource
 	private UserService userService;
-	/**
-	 * 登录的用户
-	 */
-	private LoginedUser loginInfo;
 
 	private File image; // 上传的文件
 	private String imageFileName; // 文件名称
@@ -182,17 +177,6 @@ public class UserAction extends BaseAction<UserVO> {
 		}
 		userService.addRegister(cloudContext);
 		return REGISTER;
-	}
-
-	/**
-	 * 校内用户完善个人信息
-	 * 
-	 * @return
-	 * @throws SQLException
-	 */
-	public String addUserInfo() throws SQLException {
-		userService.addUserInfo(cloudContext);
-		return CARDUSERREGIST;
 	}
 
 	/**
@@ -324,14 +308,6 @@ public class UserAction extends BaseAction<UserVO> {
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
-	}
-
-	public LoginedUser getLoginInfo() {
-		return loginInfo;
-	}
-
-	public void setLoginInfo(LoginedUser loginInfo) {
-		this.loginInfo = loginInfo;
 	}
 
 	public File getImage() {

@@ -24,14 +24,17 @@ import com.artunion.BaseEntity;
 /**
  * 用户
  * 
- * @author lizhao
+ * @author LiZhao
  * 
  */
-@SuppressWarnings("serial")
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "tb_user")
 public class UserEntity extends BaseEntity {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -4616405021606152401L;
     /**
      * 用户名
      */
@@ -45,8 +48,8 @@ public class UserEntity extends BaseEntity {
     /**
      * 添加时间
      */
-    @Column(name = "ADD_TIME_")
-    private Date addTime;
+    @Column(name = "ADD_DATE_")
+    private Date addDate;
 
     /**
      * 电子邮箱
@@ -88,19 +91,14 @@ public class UserEntity extends BaseEntity {
     /**
      * 最后一次登陆时间
      */
-    @Column(name = "LASTLOGINTIME_")
-    private Date lastLoginTime;
+    @Column(name = "LAST_LOGIN_DATE_")
+    private Date lastLoginDate;
     /**
      * 状态
      */
     @Column(name = "STATUS_", length = 20, nullable = false)
     private String status;
 
-    /**
-     * 所属单位
-     */
-    @Column(name = "COMPANY_")
-    private String company;
     /**
      * 角色
      */
@@ -124,12 +122,12 @@ public class UserEntity extends BaseEntity {
         this.password = password;
     }
 
-    public Date getAddTime() {
-        return addTime;
+    public Date getAddDate() {
+        return addDate;
     }
 
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
+    public void setAddDate(Date addDate) {
+        this.addDate = addDate;
     }
 
     public String getEmail() {
@@ -188,12 +186,12 @@ public class UserEntity extends BaseEntity {
         this.addr = addr;
     }
 
-    public Date getLastLoginTime() {
-        return lastLoginTime;
+    public Date getLastLoginDate() {
+        return lastLoginDate;
     }
 
-    public void setLastLoginTime(Date lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
     }
 
     public String getStatus() {
@@ -202,14 +200,6 @@ public class UserEntity extends BaseEntity {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
     }
 
     public List<RoleEntity> getRoles() {

@@ -42,6 +42,8 @@
 	<!-- 配置事务的传播特性 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
+			<tx:method name="check*"
+				rollback-for="java.lang.Exception" />
 			<tx:method name="update*"
 				rollback-for="java.lang.Exception" />
 			<tx:method name="delete*"

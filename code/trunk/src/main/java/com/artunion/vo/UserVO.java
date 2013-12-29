@@ -12,10 +12,13 @@ import com.artunion.BaseVO;
 /**
  * 用户
  * 
- * @author CloudKing
+ * @author LiZhao
  */
-@SuppressWarnings("serial")
 public class UserVO extends BaseVO {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 4064870001294136785L;
     /**
      * 基本信息
      */
@@ -57,11 +60,11 @@ public class UserVO extends BaseVO {
     /**
      * 添加时间
      */
-    private Date addTime;
+    private Date addDate;
     /**
      * 最后一次登陆时间
      */
-    private Date lastLoginTime;
+    private Date lastLoginDate;
     /**
      * 地址
      */
@@ -70,17 +73,6 @@ public class UserVO extends BaseVO {
      * 状态
      */
     private String status;
-
-    private String company;
-    
-    
-	public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
 
     public String getUsername() {
         return username;
@@ -130,20 +122,20 @@ public class UserVO extends BaseVO {
         this.sex = sex;
     }
 
-    public Date getAddTime() {
-        return addTime;
+    public Date getAddDate() {
+        return addDate;
     }
 
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
+    public void setAddDate(Date addDate) {
+        this.addDate = addDate;
     }
 
-    public Date getLastLoginTime() {
-        return lastLoginTime;
+    public Date getLastLoginDate() {
+        return lastLoginDate;
     }
 
-    public void setLastLoginTime(Date lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
     }
 
     public String getStatus() {
@@ -161,16 +153,16 @@ public class UserVO extends BaseVO {
     public void setRealname(String realname) {
         this.realname = realname;
     }
-    
+
     public String getHeadPic() {
-		return headPic;
-	}
+        return headPic;
+    }
 
-	public void setHeadPic(String headPic) {
-		this.headPic = headPic;
-	}
+    public void setHeadPic(String headPic) {
+        this.headPic = headPic;
+    }
 
-	public String getAddr() {
+    public String getAddr() {
         return addr;
     }
 
@@ -178,5 +170,4 @@ public class UserVO extends BaseVO {
         this.addr = addr;
     }
 
-    
 }
