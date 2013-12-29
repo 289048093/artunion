@@ -71,7 +71,7 @@ public abstract class BaseAction<T extends BaseVO> extends ActionSupport {
     /**
      * CloudContext上下文，用来存放所有请求和响应的容器
      */
-    protected ArtUnionContext<T> cloudContext = new ArtUnionContext<T>();
+    protected ArtUnionContext<T> artunionContext = new ArtUnionContext<T>();
 
     /**
      * 构造方法
@@ -81,21 +81,21 @@ public abstract class BaseAction<T extends BaseVO> extends ActionSupport {
             ParameterizedType parameterizedType = (ParameterizedType) this.getClass().getGenericSuperclass();
             if (parameterizedType != null) {
                 Class<T> clazz = (Class<T>) parameterizedType.getActualTypeArguments()[0];
-                cloudContext.setVo(clazz.newInstance());
+                artunionContext.setVo(clazz.newInstance());
 
             }
             //设置页数
             int start = StringUtil.isBlank(getRequest().getParameter("pager.offset"))
-                            || Integer.parseInt(getRequest().getParameter("pager.offset")) < 0 ? cloudContext
+                            || Integer.parseInt(getRequest().getParameter("pager.offset")) < 0 ? artunionContext
                             .getPageInfo().getStart() : Integer.parseInt(getRequest().getParameter("pager.offset"));
             if(StringUtil.isBlank(getRequest().getParameter("pagesize"))){
-                cloudContext.addParam("pagesize_null_flag", true);
+                artunionContext.addParam("pagesize_null_flag", true);
             }
-            int pagesize = StringUtil.isBlank(getRequest().getParameter("pagesize")) ? cloudContext.getPageInfo()
+            int pagesize = StringUtil.isBlank(getRequest().getParameter("pagesize")) ? artunionContext.getPageInfo()
                             .getEachPageData() : Integer.parseInt(getRequest().getParameter("pagesize"));
-            cloudContext.getPageInfo().setNowPage((start + pagesize) / pagesize);
-            cloudContext.getPageInfo().setEachPageData(pagesize);
-            cloudContext.setLoginedUser(getLoginedUser());
+            artunionContext.getPageInfo().setNowPage((start + pagesize) / pagesize);
+            artunionContext.getPageInfo().setEachPageData(pagesize);
+            artunionContext.setLoginedUser(getLoginedUser());
         } catch (Exception e) {
             LogUtil.error(e);
         }
@@ -196,6 +196,6 @@ public abstract class BaseAction<T extends BaseVO> extends ActionSupport {
      * @return
      */
     public ArtUnionContext<T> getCloudContext() {
-        return cloudContext;
+        return artunionContext;
     }
 }

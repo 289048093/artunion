@@ -43,8 +43,8 @@ Ext.onReady(function() {
 									"expertId", "expertName"],
 							pageSize : DEFAULT_EACH_PAGE_DATA,
 							proxy : {
-								pageParam : "cloudContext.pageInfo.nowPage",
-								limitParam : "cloudContext.pageInfo.eachPageData",
+								pageParam : "artunionContext.pageInfo.nowPage",
+								limitParam : "artunionContext.pageInfo.eachPageData",
 								type : "ajax",
 								actionMethods : {
 									read : 'POST'
@@ -52,8 +52,8 @@ Ext.onReady(function() {
 								url : "expertQuestionManager/expertQuestion!userCenterShowMyQuestion.action",
 								reader : {
 									type : "json",
-									root : "cloudContext.params.expertQuestions",
-									totalProperty : 'cloudContext.pageInfo.dataCount'
+									root : "artunionContext.params.expertQuestions",
+									totalProperty : 'artunionContext.pageInfo.dataCount'
 								}
 							}
 						});
@@ -165,7 +165,7 @@ Ext.onReady(function() {
 								xtype : 'templatecolumn',
 								tpl : '<a style="text-decoration:none;" href="javascript:initAnswer({id});">' 
 									+'<img src="extjs/resources/icons/page_white_edit.png" alt="回答" title="解答问题"  class="actionColumnImg" /></a>&nbsp;' +
-											'<img src="extjs/resources/icons/page_white_horizontal.png" onclick="parent.window.open(\'expertQuestionManager/expertQuestion!showoneExpert.action?cloudContext.vo.id={id}\')" style="cursor:pointer;" title="浏览"/>'
+											'<img src="extjs/resources/icons/page_white_horizontal.png" onclick="parent.window.open(\'expertQuestionManager/expertQuestion!showoneExpert.action?artunionContext.vo.id={id}\')" style="cursor:pointer;" title="浏览"/>'
 							}
 
 					],
@@ -278,13 +278,13 @@ Ext.onReady(function() {
 			bodyStyle : 'padding:10 10',
 			items : [ {
 				id : 'equipmentId',
-				name : 'cloudContext.vo.questionId',
+				name : 'artunionContext.vo.questionId',
 				hidden : true
 			},{
 
 				xtype : 'htmleditor',
 				id : 'descId',
-				name : 'cloudContext.vo.content',
+				name : 'artunionContext.vo.content',
 				height : 440,
 				anchor : '98%',
 				enableAlignments : true,
@@ -310,7 +310,7 @@ Ext.onReady(function() {
 			}, {
 				xtype : 'hiddenfield',
 				id : 'fileNameId',
-				name : 'cloudContext.vo.uploadFileFileName'
+				name : 'artunionContext.vo.uploadFileFileName'
 			} ]
 		});
 		
@@ -375,7 +375,7 @@ function subStringDate(value) {
 function query() {
 	var params = {
 		
-		"cloudContext.vo.ordrNum" : Ext.getCmp('searchOrderNumId').getValue()
+		"artunionContext.vo.ordrNum" : Ext.getCmp('searchOrderNumId').getValue()
 	};
 	questionStore.proxy.extraParams = params;
 	questionStore.load();
@@ -399,8 +399,8 @@ function initAnswer(id){
 function addAnswer(){
 	var url = "expertQuestionAnswerManager/expertQuestionAnswer!addEQA.action"; // 默认为添加模式，如果存在全局的密码，则会替换该url
 	var param = {
-		"cloudContext.vo.questionId" : Ext.getCmp('equipmentId').getValue(),
-		"cloudContext.vo.content" : Ext.getCmp('descId').getValue()
+		"artunionContext.vo.questionId" : Ext.getCmp('equipmentId').getValue(),
+		"artunionContext.vo.content" : Ext.getCmp('descId').getValue()
 	};
 	// 清空全局密码标记
 	var form = Ext.getCmp("answerPanel").getForm();

@@ -41,7 +41,7 @@ import com.artunion.vo.UserVO;
 @Namespace("/userManager")
 @Results( {
 		@Result(name = "success", type = "dispatcher", location = "/index.jsp"),
-		@Result(name = "loginRedirect", type = "redirect", location = "%{#request.cloudContext.params.destPath}"),
+		@Result(name = "loginRedirect", type = "redirect", location = "%{#request.artunionContext.params.destPath}"),
 		@Result(name = "loginSuccess", type = "redirect", location = "/index.jsp"),
 		@Result(name = "login", type = "dispatcher", location = "/index.jsp"),
 		@Result(name = "logout", type = "redirect", location = "/index.jsp"),
@@ -91,7 +91,7 @@ public class UserAction extends BaseAction<UserVO> {
 	 *             所有不能处理的异常
 	 */
 	public String query() throws Exception {
-		userService.query(cloudContext);
+		userService.query(artunionContext);
 		return JSON;
 	}
 
@@ -103,21 +103,21 @@ public class UserAction extends BaseAction<UserVO> {
 	 */
 	public String login() throws Exception {
 
-		cloudContext.addParam(Constant.VERIFY_CODE, getSession().getAttribute(
+		artunionContext.addParam(Constant.VERIFY_CODE, getSession().getAttribute(
 				Constant.VERIFY_CODE));
-		if (StringUtil.isBlank(cloudContext.getVo().getUsername())) {
-			cloudContext.addErrorMsg("用户名不能为空");
+		if (StringUtil.isBlank(artunionContext.getVo().getUsername())) {
+			artunionContext.addErrorMsg("用户名不能为空");
 		}
-		if (StringUtil.isBlank(cloudContext.getVo().getPassword())) {
-			cloudContext.addErrorMsg("密码不能为空!");
+		if (StringUtil.isBlank(artunionContext.getVo().getPassword())) {
+			artunionContext.addErrorMsg("密码不能为空!");
 		}
-		if (StringUtil.isBlank(cloudContext.getStringParam("checkCode"))) {
-			cloudContext.addErrorMsg("验证码不能为空!");
+		if (StringUtil.isBlank(artunionContext.getStringParam("checkCode"))) {
+			artunionContext.addErrorMsg("验证码不能为空!");
 		}
-		if (cloudContext.getSuccessIngoreWarn()) {
-			userService.login(cloudContext);
-			getSession().setAttribute("user", cloudContext.getVo());
-			putLoginedUser(cloudContext.getLoginedUser());
+		if (artunionContext.getSuccessIngoreWarn()) {
+			userService.login(artunionContext);
+			getSession().setAttribute("user", artunionContext.getVo());
+			putLoginedUser(artunionContext.getLoginedUser());
 		}
 		return JSON;
 	}
@@ -129,28 +129,28 @@ public class UserAction extends BaseAction<UserVO> {
 	 * @throws SQLException
 	 */
 	public String validOutLogin() throws SQLException {
-		cloudContext.addParam(Constant.VERIFY_CODE, getSession().getAttribute(
+		artunionContext.addParam(Constant.VERIFY_CODE, getSession().getAttribute(
 				Constant.VERIFY_CODE));
-		if (StringUtil.isBlank(cloudContext.getVo().getUsername())) {
-			cloudContext.addErrorMsg("用户名不能为空");
+		if (StringUtil.isBlank(artunionContext.getVo().getUsername())) {
+			artunionContext.addErrorMsg("用户名不能为空");
 		}
-		if (StringUtil.isBlank(cloudContext.getVo().getPassword())) {
-			cloudContext.addErrorMsg("密码不能为空!");
+		if (StringUtil.isBlank(artunionContext.getVo().getPassword())) {
+			artunionContext.addErrorMsg("密码不能为空!");
 		}
-		if (StringUtil.isBlank(cloudContext.getStringParam("checkCode"))) {
-			cloudContext.addErrorMsg("验证码不能为空!");
+		if (StringUtil.isBlank(artunionContext.getStringParam("checkCode"))) {
+			artunionContext.addErrorMsg("验证码不能为空!");
 		}
-		if (cloudContext.getSuccessIngoreWarn()) {
-			userService.login(cloudContext);
+		if (artunionContext.getSuccessIngoreWarn()) {
+			userService.login(artunionContext);
 		}
-		if (cloudContext.getSuccessIngoreWarn()) {
-			if (cloudContext.getBooleanParam("cardUserNoRegist")) {
+		if (artunionContext.getSuccessIngoreWarn()) {
+			if (artunionContext.getBooleanParam("cardUserNoRegist")) {
 				return CARDUSERREGIST;
 			}
-			putLoginedUser(cloudContext.getLoginedUser());
-			String url = cloudContext.getStringParam("path").trim();
+			putLoginedUser(artunionContext.getLoginedUser());
+			String url = artunionContext.getStringParam("path").trim();
 			if (!StringUtil.isBlank(url) && !url.equals("null")) {
-				cloudContext.addParam("destPath", url.replace(getRequest()
+				artunionContext.addParam("destPath", url.replace(getRequest()
 						.getContextPath(), ""));
 				return LOGINREDIRECT;
 			}
@@ -172,11 +172,11 @@ public class UserAction extends BaseAction<UserVO> {
 	// ValidatorType.SIMPLE, fieldName = "userVO.userEntity.username",
 	// expression = "[\\w\\-]{4,12}", message = "用户名必须是4-12的字符") })
 	public String register() throws Exception {
-		if (!cloudContext.getSuccessIngoreWarn()) {// 表单重复提交了
-			return SUCCESS;
+		if (!artunionContext.getSuccessIngoreWarn()) {// 表单重复提交了
+			return JSON;
 		}
-		userService.addRegister(cloudContext);
-		return REGISTER;
+		userService.addRegister(artunionContext);
+		return JSON;
 	}
 
 	/**
@@ -198,7 +198,7 @@ public class UserAction extends BaseAction<UserVO> {
 	 *             exc
 	 */
 	public String initRegister() throws Exception {
-		userService.initRegister(cloudContext);
+		userService.initRegister(artunionContext);
 		return JSON;
 	}
 
@@ -209,7 +209,7 @@ public class UserAction extends BaseAction<UserVO> {
 	 * @throws SQLException
 	 */
 	public String findByEmail() throws SQLException {
-		userService.findByEmail(cloudContext);
+		userService.findByEmail(artunionContext);
 		return JSON;
 	}
 
@@ -220,18 +220,18 @@ public class UserAction extends BaseAction<UserVO> {
 	 * @throws SQLException
 	 */
 	public String initResetPassword() throws SQLException {
-		if (!cloudContext.getSuccessIngoreWarn()) {// 表单重复提交了
+		if (!artunionContext.getSuccessIngoreWarn()) {// 表单重复提交了
 			return RESETPASSWORD_SUCCESS;
 		}
-		cloudContext.addParam(Constant.VERIFY_CODE, getSession().getAttribute(
+		artunionContext.addParam(Constant.VERIFY_CODE, getSession().getAttribute(
 				Constant.VERIFY_CODE));
 		HttpServletRequest request = getRequest();
 		String path = request.getContextPath();
 		String basePath = request.getScheme() + "://" + request.getServerName()
 				+ ":" + request.getServerPort() + path + "/";
-		cloudContext.addParam("basePath", basePath);
-		userService.addResetPassword(cloudContext);
-		return cloudContext.getSuccessIngoreWarn() ? RESETPASSWORD_SUCCESS
+		artunionContext.addParam("basePath", basePath);
+		userService.addResetPassword(artunionContext);
+		return artunionContext.getSuccessIngoreWarn() ? RESETPASSWORD_SUCCESS
 				: RESETPASSWORD;
 	}
 
@@ -261,9 +261,9 @@ public class UserAction extends BaseAction<UserVO> {
 
 		}
 
-		cloudContext.getVo().setHeadPic(realname);
-		userService.updateCenter(cloudContext);
-		userService.center(cloudContext);
+		artunionContext.getVo().setHeadPic(realname);
+		userService.updateCenter(artunionContext);
+		userService.center(artunionContext);
 		return CENTER;
 	}
 
@@ -274,12 +274,12 @@ public class UserAction extends BaseAction<UserVO> {
 	 * @throws SQLException
 	 */
 	public String updatePassword() throws SQLException {
-		userService.updatePassword(cloudContext);
+		userService.updatePassword(artunionContext);
 		return JSON;
 	}
 
 	public String center() throws SQLException {
-		userService.center(cloudContext);
+		userService.center(artunionContext);
 		return CENTER;
 	}
 
@@ -297,12 +297,12 @@ public class UserAction extends BaseAction<UserVO> {
 	 * @throws SQLException
 	 */
 	public String initUpdateResetPassword() throws SQLException {
-		userService.initUpdateResetPassword(cloudContext);
+		userService.initUpdateResetPassword(artunionContext);
 		return INIT_UPDATE_RESET_PASSWORD;
 	}
 
 	public String resetPassword() throws SQLException {
-		userService.updateResetPassword(cloudContext);
+		userService.updateResetPassword(artunionContext);
 		return INIT_UPDATE_RESET_PASSWORD;
 	}
 

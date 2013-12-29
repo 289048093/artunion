@@ -76,7 +76,7 @@ font-family: "微软雅黑";
 	<!--  #F2F2F2; -->
 	<body>
 		<form action="userManager/user!validOutLogin.action" method="post">
-			<input name="cloudContext.params.path" value='<%=srcPath%>'
+			<input name="artunionContext.params.path" value='<%=srcPath%>'
 				type="hidden">
 			<div>
 				<div align='center'
@@ -101,7 +101,7 @@ font-family: "微软雅黑";
 														</div>
 													</td>
 													<td>
-														<input type="text" name="cloudContext.vo.username"
+														<input type="text" name="artunionContext.vo.username"
 															id="username" class="form_text" />
 													</td>
 												</tr>
@@ -113,7 +113,7 @@ font-family: "微软雅黑";
 														</div>
 													</td>
 													<td>
-														<input type="password" name="cloudContext.vo.password"
+														<input type="password" name="artunionContext.vo.password"
 															id="password" class="form_text">
 													</td>
 												</tr>
@@ -124,7 +124,7 @@ font-family: "微软雅黑";
 														</div>
 													</td>
 													<td>
-														<input type="text" name="cloudContext.params.checkCode"
+														<input type="text" name="artunionContext.params.checkCode"
 															maxlength="4" id="checkCode" class="form_text">
 														<img id="verifyCode" src="VerifyCode?Math.random()"
 															style="top: 5px; position: relative; cursor: pointer;"
@@ -146,8 +146,8 @@ font-family: "微软雅黑";
 													<td colspan="2">
 														<div class="error_msg">
 															<s:if
-																test="#request.cloudContext.errorMsgList!=null && #request.cloudContext.errorMsgList.size()>0">
-																<s:iterator value="#request.cloudContext.errorMsgList"
+																test="#request.artunionContext.errorMsgList!=null && #request.artunionContext.errorMsgList.size()>0">
+																<s:iterator value="#request.artunionContext.errorMsgList"
 																	var="msg">
 											${msg}
 										</s:iterator>

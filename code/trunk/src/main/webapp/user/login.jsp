@@ -20,7 +20,7 @@
 						用户名:
 					</td>
 					<td>
-						<input type="text" name="cloudContext.vo.name">
+						<input type="text" name="artunionContext.vo.name">
 					</td>
 				</tr>
 				<tr>
@@ -28,7 +28,7 @@
 						密码:
 					</td>
 					<td>
-						<input type="text" name="cloudContext.vo.password">
+						<input type="text" name="artunionContext.vo.password">
 					</td>
 				</tr>
 				<tr>
@@ -36,7 +36,7 @@
 						验证码:
 					</td>
 					<td>
-						<input type="text" name="cloudContext.params.name" />
+						<input type="text" name="artunionContext.params.name" />
 						<img src="VerifyCode?Math.random()">
 					</td>
 				</tr>

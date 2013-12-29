@@ -36,7 +36,7 @@ Ext.onReady(function() {
 									xtype : "textfield",
 									fieldLabel : '用户名',
 									labelWidth : 50,
-									name : 'cloudContext.vo.username',
+									name : 'artunionContext.vo.username',
 									id : "usernameId",
 									listeners : {
 										specialkey : function(field, e) {
@@ -63,7 +63,7 @@ Ext.onReady(function() {
 									xtype : "textfield",
 									fieldLabel : '密&nbsp;&nbsp;&nbsp;码',
 									labelWidth : 50,
-									name : 'cloudContext.vo.password',
+									name : 'artunionContext.vo.password',
 									id : 'passwordId',
 									inputType : "password",
 									listeners : {
@@ -91,7 +91,7 @@ Ext.onReady(function() {
 									xtype : "verifyfield",
 									fieldLabel : '验证码',
 									labelWidth : 50,
-									name : 'cloudContext.params.verifyCode',
+									name : 'artunionContext.params.verifyCode',
 									id : 'verifyCodeId',
 									blankText : '验证码不能为空',
 									width : 160,

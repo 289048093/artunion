@@ -50,10 +50,10 @@ public class UserService extends BaseService {
     /**
      * 注销
      * 
-     * @param cloudContext
+     * @param artunionContext
      * @exception exc
      */
-    public void logout(ArtUnionContext<UserVO> cloudContext) {
+    public void logout(ArtUnionContext<UserVO> artunionContext) {
 
     }
 
@@ -64,17 +64,17 @@ public class UserService extends BaseService {
      * @throws SQLException
      * @throws Exception
      */
-    public void login(ArtUnionContext<UserVO> cloudContext) throws SQLException {
+    public void login(ArtUnionContext<UserVO> artunionContext) throws SQLException {
         // 得到用户输入的姓名、密码及验证码
-        String username = cloudContext.getVo().getUsername();
+        String username = artunionContext.getVo().getUsername();
         UserEntity loginUser = null;
-        String password = cloudContext.getVo().getPassword();
-        String checkCode = cloudContext.getStringParam("checkCode");
+        String password = artunionContext.getVo().getPassword();
+        String checkCode = artunionContext.getStringParam("checkCode");
         // 得到常量验证码
-        String verifyCode = cloudContext.getStringParam(Constant.VERIFY_CODE);
+        String verifyCode = artunionContext.getStringParam(Constant.VERIFY_CODE);
         // 首先验证 验证码 验证码不通过直接返回
         if (!checkCode.equals(verifyCode)) {
-            cloudContext.addErrorMsg("验证码错误");
+            artunionContext.addErrorMsg("验证码错误");
             return;
         }
         String md5pwd = StringUtil.encrypt(username, password);
@@ -83,10 +83,10 @@ public class UserService extends BaseService {
 
         LoginedUser loginUserVO = new LoginedUser();
         BeanUtils.copyProperties(loginUser, loginUserVO);
-        cloudContext.addParam(Constant.LOGINED_USER, loginUserVO);
+        artunionContext.addParam(Constant.LOGINED_USER, loginUserVO);
 
-        cloudContext.setLoginedUser(loginUserVO);
-        cloudContext.addSuccessMsg("登录成功");
+        artunionContext.setLoginedUser(loginUserVO);
+        artunionContext.addSuccessMsg("登录成功");
 
     }
 
@@ -97,37 +97,37 @@ public class UserService extends BaseService {
      * @throws SQLException
      * @throws Exception
      */
-    public void addRegister(ArtUnionContext<UserVO> cloudContext) throws SQLException {
+    public void addRegister(ArtUnionContext<UserVO> artunionContext) throws SQLException {
         // 判断注册用户名是否已经存在
 
-        UserEntity userEntity = userDAO.findUserByUsername(cloudContext.getVo().getUsername());
+        UserEntity userEntity = userDAO.findUserByUsername(artunionContext.getVo().getUsername());
         if (userEntity == null) {
 
             userEntity = new UserEntity();
-            userEntity.setAddr(cloudContext.getVo().getAddr());
-            userEntity.setEmail(cloudContext.getVo().getEmail());
-            userEntity.setMobilePhone(cloudContext.getVo().getMobilePhone());
-            userEntity.setRealname(cloudContext.getVo().getRealname());
-            userEntity.setSex(cloudContext.getVo().getSex());
-            userEntity.setUsername(cloudContext.getVo().getUsername());
-            userEntity.setId(cloudContext.getVo().getId());
-            userEntity.setTelPhone(cloudContext.getVo().getTelPhone());
+            userEntity.setAddr(artunionContext.getVo().getAddr());
+            userEntity.setEmail(artunionContext.getVo().getEmail());
+            userEntity.setMobilePhone(artunionContext.getVo().getMobilePhone());
+            userEntity.setRealname(artunionContext.getVo().getRealname());
+            userEntity.setSex(artunionContext.getVo().getSex());
+            userEntity.setUsername(artunionContext.getVo().getUsername());
+            userEntity.setId(artunionContext.getVo().getId());
+            userEntity.setTelPhone(artunionContext.getVo().getTelPhone());
             Date date = new Date();
             userEntity.setAddDate(date);
             userEntity.setStatus(Constant.USER_NORMAL_STATE);
-            userEntity.setPassword(StringUtil.encrypt(cloudContext.getVo().getUsername(), cloudContext.getVo()
+            userEntity.setPassword(StringUtil.encrypt(artunionContext.getVo().getUsername(), artunionContext.getVo()
                     .getPassword()));
             userDAO.insert(userEntity);
-            cloudContext.addSuccessMsg("注册成功");
+            artunionContext.addSuccessMsg("注册成功");
         } else {
-            cloudContext.addErrorMsg("用户名已存在");
+            artunionContext.addErrorMsg("用户名已存在");
         }
     }
 
     /**
-     * @param cloudContext
+     * @param artunionContext
      */
-    public void query(ArtUnionContext<UserVO> cloudContext) {
+    public void query(ArtUnionContext<UserVO> artunionContext) {
         // TODO Auto-generated method stub
 
     }
@@ -135,7 +135,7 @@ public class UserService extends BaseService {
     /**
      * 找回密码
      */
-    public void retrievePwd(ArtUnionContext<UserVO> cloudContext) {
+    public void retrievePwd(ArtUnionContext<UserVO> artunionContext) {
         // TODO Auto-generated method stub
 
     }
@@ -145,44 +145,44 @@ public class UserService extends BaseService {
      * 
      * @throws SQLException
      */
-    public void initRegister(ArtUnionContext<UserVO> cloudContext) throws SQLException {
+    public void initRegister(ArtUnionContext<UserVO> artunionContext) throws SQLException {
         // 用户名判断
-        String username = cloudContext.getVo().getUsername();
+        String username = artunionContext.getVo().getUsername();
         UserEntity userEntity = userDAO.findUserByUsername(username);
-        cloudContext.addParam("usernameExist", userEntity != null);
+        artunionContext.addParam("usernameExist", userEntity != null);
     }
 
 
     /**
      * 验证邮箱是否被使用
      * 
-     * @param cloudContext
+     * @param artunionContext
      * @throws SQLException
      */
-    public void findByEmail(ArtUnionContext<UserVO> cloudContext) throws SQLException {
-        String email = cloudContext.getVo().getEmail();
+    public void findByEmail(ArtUnionContext<UserVO> artunionContext) throws SQLException {
+        String email = artunionContext.getVo().getEmail();
         UserEntity userEntity = userDAO.findUserByEmail(email);
-        cloudContext.addParam("emailExist", userEntity != null);
+        artunionContext.addParam("emailExist", userEntity != null);
     }
 
     /**
      * 重置密码（邮件发送重置连接）
      * 
-     * @param cloudContext
+     * @param artunionContext
      * @throws SQLException
      */
-    public void addResetPassword(ArtUnionContext<UserVO> cloudContext) throws SQLException {
-        String checkCode = cloudContext.getStringParam("checkCode");
+    public void addResetPassword(ArtUnionContext<UserVO> artunionContext) throws SQLException {
+        String checkCode = artunionContext.getStringParam("checkCode");
         // 验证码
-        String verifyCode = cloudContext.getStringParam(Constant.VERIFY_CODE);
+        String verifyCode = artunionContext.getStringParam(Constant.VERIFY_CODE);
         if (!checkCode.equals(verifyCode)) {
-            cloudContext.addErrorMsg("验证码错误");
+            artunionContext.addErrorMsg("验证码错误");
             return;
         }
-        String email = cloudContext.getVo().getEmail();
+        String email = artunionContext.getVo().getEmail();
         UserEntity userEntity = userDAO.findUserByEmail(email);
         if (userEntity == null) {
-            cloudContext.addErrorMsg("该邮箱未注册用户");
+            artunionContext.addErrorMsg("该邮箱未注册用户");
             return;
         }
         // 邮件发送 密码重置
@@ -192,7 +192,7 @@ public class UserService extends BaseService {
         rupe.setUser(userEntity);
         rupe.setAddDate(new Date());
         resetUserPasswordDAO.insert(rupe);
-        String basePath = cloudContext.getStringParam("basePath");
+        String basePath = artunionContext.getStringParam("basePath");
         MailUtil
                 .sendMail(
                         "用户找回密码",
@@ -202,101 +202,101 @@ public class UserService extends BaseService {
                                         userEntity.getRealname(),
                                         userEntity.getUsername(),
                                         basePath
-                                                + "userManager/user!initUpdateResetPassword.action?cloudContext.params.key="
+                                                + "userManager/user!initUpdateResetPassword.action?artunionContext.params.key="
                                                 + key), email, true);
     }
 
-    public void initUpdateResetPassword(ArtUnionContext<UserVO> cloudContext) throws SQLException {
-        String key = cloudContext.getStringParam("key");
+    public void initUpdateResetPassword(ArtUnionContext<UserVO> artunionContext) throws SQLException {
+        String key = artunionContext.getStringParam("key");
         ResetUserPasswordEntity rupe = resetUserPasswordDAO.findByKey(key);
         if (rupe == null) {
-            cloudContext.addErrorMsg("链接已失效，请重新找回");
+            artunionContext.addErrorMsg("链接已失效，请重新找回");
             return;
         }
-        BeanUtils.copyProperties(rupe.getUser(), cloudContext.getVo());
+        BeanUtils.copyProperties(rupe.getUser(), artunionContext.getVo());
     }
 
     /**
      * 密码重置
      * 
-     * @param cloudContext
+     * @param artunionContext
      * @throws SQLException
      */
-    public void updateResetPassword(ArtUnionContext<UserVO> cloudContext) throws SQLException {
-        String key = cloudContext.getStringParam("key");
+    public void updateResetPassword(ArtUnionContext<UserVO> artunionContext) throws SQLException {
+        String key = artunionContext.getStringParam("key");
         ResetUserPasswordEntity rupe = resetUserPasswordDAO.findByKey(key);
         if (rupe == null) {
-            cloudContext.addErrorMsg("链接已失效，请重新找回");
+            artunionContext.addErrorMsg("链接已失效，请重新找回");
             return;
         }
         UserEntity user = rupe.getUser();
-        String newPwd = cloudContext.getVo().getPassword();
+        String newPwd = artunionContext.getVo().getPassword();
         String md5pwd = StringUtil.encrypt(user.getUsername(), newPwd);
         user.setPassword(md5pwd);
         userDAO.update(user);
         resetUserPasswordDAO.delete(rupe);
-        cloudContext.addSuccessMsg("修改成功");
+        artunionContext.addSuccessMsg("修改成功");
     }
 
     /**
      * 个人中心
      * 
-     * @param cloudContext
+     * @param artunionContext
      * @throws SQLException
      * @throws BeansException
      */
-    public void center(ArtUnionContext<UserVO> cloudContext) throws BeansException, SQLException {
+    public void center(ArtUnionContext<UserVO> artunionContext) throws BeansException, SQLException {
         LoginedUser loginedUser = (LoginedUser) ServletActionContext.getRequest().getSession().getAttribute(
                 Constant.LOGINED_USER);
         if (loginedUser == null) {
-            cloudContext.addErrorMsg("您还未登录，请先登录");
+            artunionContext.addErrorMsg("您还未登录，请先登录");
             return;
         }
         UserEntity user = userDAO.get(loginedUser.getId());
-        BeanUtils.copyProperties(user, cloudContext.getVo());
+        BeanUtils.copyProperties(user, artunionContext.getVo());
     }
 
     /**
      * 个人中心修改
      * 
-     * @param cloudContext
+     * @param artunionContext
      * @throws SQLException
      */
-    public void updateCenter(ArtUnionContext<UserVO> cloudContext) throws SQLException {
+    public void updateCenter(ArtUnionContext<UserVO> artunionContext) throws SQLException {
         // 通过id从数据库判断是否有该用户
-        UserEntity userEntity = userDAO.get(cloudContext.getVo().getId());
+        UserEntity userEntity = userDAO.get(artunionContext.getVo().getId());
         if (userEntity == null) {
-            cloudContext.addErrorMsg("用户不存在，请刷新重试");
+            artunionContext.addErrorMsg("用户不存在，请刷新重试");
             return;
         }
-        if (cloudContext.getVo().getHeadPic() != null) {
-            userEntity.setHeadPic(cloudContext.getVo().getHeadPic());
+        if (artunionContext.getVo().getHeadPic() != null) {
+            userEntity.setHeadPic(artunionContext.getVo().getHeadPic());
         }
-        userEntity.setSex(cloudContext.getVo().getSex());
-        userEntity.setAddr(cloudContext.getVo().getAddr());
-        userEntity.setEmail(cloudContext.getVo().getEmail());
-        userEntity.setRealname(cloudContext.getVo().getRealname());
-        userEntity.setMobilePhone(cloudContext.getVo().getMobilePhone());
-        userEntity.setTelPhone(cloudContext.getVo().getTelPhone());
+        userEntity.setSex(artunionContext.getVo().getSex());
+        userEntity.setAddr(artunionContext.getVo().getAddr());
+        userEntity.setEmail(artunionContext.getVo().getEmail());
+        userEntity.setRealname(artunionContext.getVo().getRealname());
+        userEntity.setMobilePhone(artunionContext.getVo().getMobilePhone());
+        userEntity.setTelPhone(artunionContext.getVo().getTelPhone());
         userDAO.insert(userEntity);
-        BeanUtils.copyProperties(userEntity, cloudContext.getVo());
-        cloudContext.addSuccessMsg("更新成功");
+        BeanUtils.copyProperties(userEntity, artunionContext.getVo());
+        artunionContext.addSuccessMsg("更新成功");
     }
 
-    public void updatePassword(ArtUnionContext<UserVO> cloudContext) throws SQLException {
-        Long id = cloudContext.getLoginedUser().getId();
+    public void updatePassword(ArtUnionContext<UserVO> artunionContext) throws SQLException {
+        Long id = artunionContext.getLoginedUser().getId();
         UserEntity user = userDAO.get(id);
         if (user == null) {
-            cloudContext.addErrorMsg("用户不存在");
+            artunionContext.addErrorMsg("用户不存在");
             return;
         }
-        if (!user.getPassword().equals(StringUtil.encrypt(user.getUsername(), cloudContext.getVo().getPassword()))) {
-            BeanUtils.copyProperties(user, cloudContext.getVo());
-            cloudContext.addErrorMsg("原密码错误");
+        if (!user.getPassword().equals(StringUtil.encrypt(user.getUsername(), artunionContext.getVo().getPassword()))) {
+            BeanUtils.copyProperties(user, artunionContext.getVo());
+            artunionContext.addErrorMsg("原密码错误");
             return;
         }
-        user.setPassword(StringUtil.encrypt(user.getUsername(), cloudContext.getStringParam("newPassword")));
+        user.setPassword(StringUtil.encrypt(user.getUsername(), artunionContext.getStringParam("newPassword")));
         userDAO.update(user);
-        cloudContext.addSuccessMsg("密码修改成功");
+        artunionContext.addSuccessMsg("密码修改成功");
     }
 }

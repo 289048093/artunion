@@ -33,11 +33,11 @@ var tipSuccessMsg = "";
 var tipWarnMsg = "";
 var rightsUrls = "";<%//提示信息
             List<String> successMsgList = (List<String>) TagUtils.getStack(pageContext).findValue(
-                    "#request.cloudContext.successMsgList");
+                    "#request.artunionContext.successMsgList");
             List<String> warnMsgList = (List<String>) TagUtils.getStack(pageContext).findValue(
-                    "#request.cloudContext.warnMsgList");
+                    "#request.artunionContext.warnMsgList");
             List<String> errorMsgList = (List<String>) TagUtils.getStack(pageContext).findValue(
-                    "#request.cloudContext.errorMsgList");
+                    "#request.artunionContext.errorMsgList");
             if (successMsgList != null && successMsgList.size() > 0) {
                 for (int i = 0; i < successMsgList.size(); i++) {
                     out.println(String.format("tipSuccessMsg+=\"%1$s\"\n", successMsgList.get(i).replaceAll("\"", "'")));
@@ -116,8 +116,8 @@ var rightsUrls = "";<%//提示信息
 				<form action="userManager/user!resetPassword.action" method="post"
 					id="form_" onsubmit="return validForm()">
 					<s:token></s:token>
-					<input type="hidden" name="cloudContext.params.key"
-						value='<s:property value="#request.cloudContext.params.key"/>'>
+					<input type="hidden" name="artunionContext.params.key"
+						value='<s:property value="#request.artunionContext.params.key"/>'>
 					<table class="register_content_body_tb"
 						style="border-collapse: collapse;">
 						<tr>
@@ -126,7 +126,7 @@ var rightsUrls = "";<%//提示信息
 							</td>
 							<td class="register_content_body_tb_value">
 								<div>
-									<s:property value="#request.cloudContext.vo.username" />
+									<s:property value="#request.artunionContext.vo.username" />
 								</div>
 							</td>
 						</tr>
@@ -135,7 +135,7 @@ var rightsUrls = "";<%//提示信息
 								<font class="STYLE1">新密码</font>
 							</td>
 							<td class="register_content_body_tb_value">
-								<input type="password" size="30" name="cloudContext.vo.password" id="password" />
+								<input type="password" size="30" name="artunionContext.vo.password" id="password" />
 								<font style="color: red;">*</font><font style="color: red;"
 									class="errorMsg"></font>
 							</td>
@@ -145,7 +145,7 @@ var rightsUrls = "";<%//提示信息
 								<font class="STYLE1">确认密码</font>
 							</td>
 							<td class="register_content_body_tb_value">
-								<input type="password" size="30" name="cloudContext.vo.repassword"
+								<input type="password" size="30" name="artunionContext.vo.repassword"
 									id="repassword" />
 								<font style="color: red;">*</font><font style="color: red;"
 									class="errorMsg"></font>

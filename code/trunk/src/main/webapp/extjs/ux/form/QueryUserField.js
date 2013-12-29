@@ -18,8 +18,8 @@ Ext.define("Ext.ux.form.QueryUserField", {
 							"lastLoginTime", "roles"],
 					pageSize : DEFAULT_EACH_PAGE_DATA,
 					proxy : {
-						pageParam : "cloudContext.pageInfo.nowPage",
-						limitParam : "cloudContext.pageInfo.eachPageData",
+						pageParam : "artunionContext.pageInfo.nowPage",
+						limitParam : "artunionContext.pageInfo.eachPageData",
 						type : "ajax",
 						actionMethods : {
 							read : 'POST'
@@ -27,8 +27,8 @@ Ext.define("Ext.ux.form.QueryUserField", {
 						url : "globalManager/global!queryUsers_.action",
 						reader : {
 							type : "json",
-							root : "cloudContext.params.users",
-							totalProperty : 'cloudContext.pageInfo.dataCount'
+							root : "artunionContext.params.users",
+							totalProperty : 'artunionContext.pageInfo.dataCount'
 						}
 					}
 				});
@@ -140,7 +140,7 @@ Ext.define("Ext.ux.form.QueryUserField", {
 								listeners : {
 									beforerender : function() {
 										this.store
-												.loadData(extQueryCombox.ckExtJsonDatas.cloudContext.params.roles);
+												.loadData(extQueryCombox.ckExtJsonDatas.artunionContext.params.roles);
 										this.store.insert(0, {
 													id : "",
 													name : "--请选择--"
@@ -233,17 +233,17 @@ Ext.define("Ext.ux.form.QueryUserField", {
 					beforerender : function(e) {
 						ckExtQueryUser = function() {
 							var params = {
-								"cloudContext.params.username" : Ext
+								"artunionContext.params.username" : Ext
 										.getCmp('searchUserNameId').getValue(),
-								"cloudContext.params.realname" : Ext
+								"artunionContext.params.realname" : Ext
 										.getCmp('searchRealNameId').getValue(),
-								"cloudContext.params.role" : Ext
+								"artunionContext.params.role" : Ext
 										.getCmp('searchRoleId').getValue(),
-								"cloudContext.params.sex" : Ext
+								"artunionContext.params.sex" : Ext
 										.getCmp('searchSexId').getValue(),
-								"cloudContext.params.email" : Ext
+								"artunionContext.params.email" : Ext
 										.getCmp('searchEmailId').getValue(),
-								"cloudContext.params.mobilePhone" : Ext
+								"artunionContext.params.mobilePhone" : Ext
 										.getCmp('searchMobilePhoneId')
 										.getValue()
 							};

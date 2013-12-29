@@ -18,11 +18,11 @@ $(function() {
 				$errorMsg.html(errorMsg);
 				if (username != null && username != '') {
 					$.get(
-							"userManager/user!initRegister.action?cloudContext.vo.username="
+							"userManager/user!initRegister.action?artunionContext.vo.username="
 									+ username, callback);
 				}
 				function callback(data) {
-					var exist = data.cloudContext.params.usernameExist;
+					var exist = data.artunionContext.params.usernameExist;
 					var errorMsg = '';
 					if (exist) {
 						errorMsg = "用户名已存在。"
@@ -93,11 +93,11 @@ $(function() {
 				$errorMsg.html(errorMsg);
 				if (val) {
 					$.get(
-							"userManager/user!findByEmail.action?cloudContext.vo.email="
+							"userManager/user!findByEmail.action?artunionContext.vo.email="
 									+ val, callback);
 				}
 				function callback(data) {
-					var exist = data.cloudContext.params.emailExist;
+					var exist = data.artunionContext.params.emailExist;
 					var errorMsg = '';
 					if (exist) {
 						errorMsg = "该电子邮箱已经被注册。"

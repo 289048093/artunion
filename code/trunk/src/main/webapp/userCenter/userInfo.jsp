@@ -75,24 +75,24 @@ table {
 			<form action="userManager/user!updateCenter.action" id="dform"
 				method="post" enctype="multipart/form-data">
 				<input type="hidden"
-					value='<s:property value="#request.cloudContext.vo.id"/>'
-					id="userId" name="cloudContext.vo.id" />
+					value='<s:property value="#request.artunionContext.vo.id"/>'
+					id="userId" name="artunionContext.vo.id" />
 				<table class="userInfoTable">
 					<tr>
 						<td>
 							用户名
 						</td>
 						<td>
-							<span>${cloudContext.vo.username}</span> &nbsp;&nbsp;&nbsp;&nbsp;
+							<span>${artunionContext.vo.username}</span> &nbsp;&nbsp;&nbsp;&nbsp;
 							<div class="editInfoBtn">
 								<a href="javascript:void(0)"
-									onclick="updatePass(${cloudContext.vo.id})">密码修改</a>
+									onclick="updatePass(${artunionContext.vo.id})">密码修改</a>
 							</div>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<img src="${cloudContext.vo.headPic}"
+							<img src="${artunionContext.vo.headPic}"
 								style="width: 50px; height: 50px;">
 						</td>
 						<td>
@@ -104,14 +104,14 @@ table {
 							性别
 						</td>
 						<td>
-							<s:if test="#request.cloudContext.vo.sex==1">
-								<input type="radio" name="cloudContext.vo.sex" value="1"
+							<s:if test="#request.artunionContext.vo.sex==1">
+								<input type="radio" name="artunionContext.vo.sex" value="1"
 									checked="checked" />男
-  <input type="radio" name="cloudContext.vo.sex" value="2" />女
+  <input type="radio" name="artunionContext.vo.sex" value="2" />女
   </s:if>
 							<s:else>
-								<input type="radio" name="cloudContext.vo.sex" value="1" />男
-  <input type="radio" name="cloudContext.vo.sex" value="2"
+								<input type="radio" name="artunionContext.vo.sex" value="1" />男
+  <input type="radio" name="artunionContext.vo.sex" value="2"
 									checked="checked" />女
   </s:else>
 						</td>
@@ -121,8 +121,8 @@ table {
 							email
 						</td>
 						<td>
-							<input type="text" name="cloudContext.vo.email"
-								value="${cloudContext.vo.email}" id="email">
+							<input type="text" name="artunionContext.vo.email"
+								value="${artunionContext.vo.email}" id="email">
 							<font color="red">*</font><font class="errorMsg"></font>
 						</td>
 					</tr>
@@ -131,8 +131,8 @@ table {
 							手机
 						</td>
 						<td>
-							<input type="text" name="cloudContext.vo.mobilePhone"
-								value="${cloudContext.vo.mobilePhone}" id="mobilePhone">
+							<input type="text" name="artunionContext.vo.mobilePhone"
+								value="${artunionContext.vo.mobilePhone}" id="mobilePhone">
 							<font color="red">*</font><font class="errorMsg"></font>
 						</td>
 					</tr>
@@ -141,8 +141,8 @@ table {
 							电话
 						</td>
 						<td>
-							<input type="text" name="cloudContext.vo.telPhone"
-								value="${cloudContext.vo.telPhone}" id="telPhone" />
+							<input type="text" name="artunionContext.vo.telPhone"
+								value="${artunionContext.vo.telPhone}" id="telPhone" />
 							<font class="errorMsg"></font>
 						</td>
 					</tr>
@@ -151,8 +151,8 @@ table {
 							真实姓名
 						</td>
 						<td>
-							<input type="text" name="cloudContext.vo.realname"
-								value="${cloudContext.vo.realname}" id="realname" />
+							<input type="text" name="artunionContext.vo.realname"
+								value="${artunionContext.vo.realname}" id="realname" />
 							<font color="red">*</font><font class="errorMsg"></font>
 						</td>
 					</tr>
@@ -161,8 +161,8 @@ table {
 							单位
 						</td>
 						<td>
-							<input type="text" name="cloudContext.vo.company"
-								value="${cloudContext.vo.company}" />
+							<input type="text" name="artunionContext.vo.company"
+								value="${artunionContext.vo.company}" />
 							<font class="errorMsg"></font>
 						</td>
 					</tr>
@@ -171,8 +171,8 @@ table {
 							地址
 						</td>
 						<td>
-							<input type="text" name="cloudContext.vo.addr"
-								value="${cloudContext.vo.addr}" />
+							<input type="text" name="artunionContext.vo.addr"
+								value="${artunionContext.vo.addr}" />
 							<font class="errorMsg"></font>
 						</td>
 					</tr>

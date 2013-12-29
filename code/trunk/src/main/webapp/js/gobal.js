@@ -42,9 +42,9 @@ CKGobal.ajax = function(param) {
 						enableObjs(enableArray);
 						return;
 					}
-					if (!resultJSON.cloudContext.success) {
+					if (!resultJSON.artunionContext.success) {
 						if (autoErrorTip) {
-							errorList = resultJSON.cloudContext.errorMsgList;
+							errorList = resultJSON.artunionContext.errorMsgList;
 							var errorStr = "";
 							for (var i = 0; i < errorList.length; i++) {
 								errorStr += errorList[i] + "</br>";
@@ -58,7 +58,7 @@ CKGobal.ajax = function(param) {
 					// 可以根据这个Flag做判断是否alert等操作。
 					var havaMsgFlag = false;
 					if (autoMsgTip) {
-						var msgList = resultJSON.cloudContext.errorMsgList;
+						var msgList = resultJSON.artunionContext.errorMsgList;
 						if (msgList.length > 0) {
 							havaMsgFlag = true;
 							var msgStr = "";

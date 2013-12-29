@@ -146,25 +146,25 @@ function showDeleteDataWindow(data) {
 							method : 'post',
 							async : false,
 							params : {
-								'cloudContext.params.id' : id,
-								'cloudContext.params.replaceId' : combobox
+								'artunionContext.params.id' : id,
+								'artunionContext.params.replaceId' : combobox
 										.getValue()
 							},
 							autoMsgTip : false,
 							success : function(response, options, resultJSON,
 									havaMsgFlag) {
-								if (resultJSON.cloudContext.msgList.length == 0) {
+								if (resultJSON.artunionContext.msgList.length == 0) {
 									Ext.MessageBox.alert('提示', "操作成功");
 									// 刷新列表
 									data.store.load();
 									window.close();
 									return;
 								}
-								for (var index in resultJSON.cloudContext.msgList) {
+								for (var index in resultJSON.artunionContext.msgList) {
 									Ext.MessageBox
 											.alert(
 													'提示',
-													resultJSON.cloudContext.msgList[index]);
+													resultJSON.artunionContext.msgList[index]);
 								}
 								panel.getForm().reset();
 							}

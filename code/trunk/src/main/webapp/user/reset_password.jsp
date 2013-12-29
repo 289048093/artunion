@@ -36,11 +36,11 @@ var tipSuccessMsg = "";
 var tipWarnMsg = "";
 var rightsUrls = "";<%//提示信息
             List<String> successMsgList = (List<String>) TagUtils.getStack(pageContext).findValue(
-                    "#request.cloudContext.successMsgList");
+                    "#request.artunionContext.successMsgList");
             List<String> warnMsgList = (List<String>) TagUtils.getStack(pageContext).findValue(
-                    "#request.cloudContext.warnMsgList");
+                    "#request.artunionContext.warnMsgList");
             List<String> errorMsgList = (List<String>) TagUtils.getStack(pageContext).findValue(
-                    "#request.cloudContext.errorMsgList");
+                    "#request.artunionContext.errorMsgList");
             if (successMsgList != null && successMsgList.size() > 0) {
                 for (int i = 0; i < successMsgList.size(); i++) {
                     out.println(String.format("tipSuccessMsg+=\"%1$s\"\n", successMsgList.get(i).replaceAll("\"", "'")));
@@ -105,7 +105,7 @@ var rightsUrls = "";<%//提示信息
 								<font class="STYLE1">电子邮箱</font>
 							</td>
 							<td class="register_content_body_tb_value">
-								<input size="30" name="cloudContext.vo.email" id="email" />
+								<input size="30" name="artunionContext.vo.email" id="email" />
 								<font style="color: red;">*</font><font style="color: red;"
 									class="errorMsg"></font>
 							</td>
@@ -115,7 +115,7 @@ var rightsUrls = "";<%//提示信息
 								<font class="STYLE1">验证码</font>
 							</td>
 							<td class="register_content_body_tb_value">
-									<input type="text" name="cloudContext.params.checkCode"
+									<input type="text" name="artunionContext.params.checkCode"
 										maxlength="4" id="checkCode" class="form_text"
 										style="width: 60px;" onblur="(function(t){if(!t.value){$('#validCodeErrorMsg').html('验证码不能为空');}else{$('#validCodeErrorMsg').html('');}validSuccess = (t.value != '' && validSuccess);})(this)">
 									<img id="verifyCode" src="VerifyCode?Math.random()"

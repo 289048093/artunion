@@ -19,13 +19,13 @@ function updatePass(id){
 		items : [ {
 			inputType:'password',
 			fieldLabel : '<font color="red">*</font>&nbsp;原密码',
-			name : 'cloudContext.params.ypass',
+			name : 'artunionContext.params.ypass',
 			id : 'ypassId',
 			allowBlank : false
 		},{
 			inputType:'password',
 			fieldLabel : '<font color="red">*</font>&nbsp;新密码',
-			name : 'cloudContext.params.xpass',
+			name : 'artunionContext.params.xpass',
 			id : 'xpassId',
 			allowBlank : false,
 			validator : function(value) {
@@ -38,7 +38,7 @@ function updatePass(id){
 		},{
 			inputType:'password',
 			fieldLabel : '<font color="red">*</font>重复密码',
-			name : 'cloudContext.params.cfpass',
+			name : 'artunionContext.params.cfpass',
 			id : 'cfpassId',
 			allowBlank : false
 		},{
@@ -94,9 +94,9 @@ function updatePass(){
 	var url="userManager/user!updatePassword.action";
 
 	var param = {
-	   "cloudContext.params.ypass":Ext.getCmp('ypassId').getValue(),
-		"cloudContext.params.xpass" : Ext.getCmp('xpassId').getValue(),
-		"cloudContext.params.cfpass" : Ext.getCmp('cfpassId').getValue()
+	   "artunionContext.params.ypass":Ext.getCmp('ypassId').getValue(),
+		"artunionContext.params.xpass" : Ext.getCmp('xpassId').getValue(),
+		"artunionContext.params.cfpass" : Ext.getCmp('cfpassId').getValue()
 		
 		
 	};

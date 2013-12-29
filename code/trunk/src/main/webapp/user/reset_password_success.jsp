@@ -33,11 +33,11 @@ var tipSuccessMsg = "";
 var tipWarnMsg = "";
 var rightsUrls = "";<%//提示信息
             List<String> successMsgList = (List<String>) TagUtils.getStack(pageContext).findValue(
-                    "#request.cloudContext.successMsgList");
+                    "#request.artunionContext.successMsgList");
             List<String> warnMsgList = (List<String>) TagUtils.getStack(pageContext).findValue(
-                    "#request.cloudContext.warnMsgList");
+                    "#request.artunionContext.warnMsgList");
             List<String> errorMsgList = (List<String>) TagUtils.getStack(pageContext).findValue(
-                    "#request.cloudContext.errorMsgList");
+                    "#request.artunionContext.errorMsgList");
             if (successMsgList != null && successMsgList.size() > 0) {
                 for (int i = 0; i < successMsgList.size(); i++) {
                     out.println(String.format("tipSuccessMsg+=\"%1$s\"\n", successMsgList.get(i).replaceAll("\"", "'")));
@@ -93,7 +93,7 @@ var rightsUrls = "";<%//提示信息
 				<span>当前位置：首页 >> 找回密码</span>
 			</div>
 			<div class="register_content_body">
-				您的密码找回成功，重置密码链接已发送到您的邮箱<s:property value="#request.cloudContext.vo.email"/>，请注意查收，并及时设置新密码，邮件24小时内有效
+				您的密码找回成功，重置密码链接已发送到您的邮箱<s:property value="#request.artunionContext.vo.email"/>，请注意查收，并及时设置新密码，邮件24小时内有效
 			</div>
 		</div>
 	</body>
