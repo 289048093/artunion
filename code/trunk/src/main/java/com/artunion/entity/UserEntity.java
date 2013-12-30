@@ -28,7 +28,7 @@ import com.artunion.BaseEntity;
  * 
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "tb_user")
 public class UserEntity extends BaseEntity {
     /**
@@ -96,8 +96,8 @@ public class UserEntity extends BaseEntity {
     /**
      * 状态
      */
-    @Column(name = "STATUS_", length = 20, nullable = false)
-    private String status;
+    @Column(name = "STATUS_", nullable = false)
+    private Byte status;
 
     /**
      * 角色
@@ -105,6 +105,14 @@ public class UserEntity extends BaseEntity {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "tb_user_bid_roles", joinColumns = { @JoinColumn(name = "USER_ID_", referencedColumnName = "ID_") }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID_", referencedColumnName = "ID_") })
     private List<RoleEntity> roles;
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
+    }
 
     public String getUsername() {
         return username;
@@ -192,14 +200,6 @@ public class UserEntity extends BaseEntity {
 
     public void setLastLoginDate(Date lastLoginDate) {
         this.lastLoginDate = lastLoginDate;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public List<RoleEntity> getRoles() {

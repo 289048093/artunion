@@ -16,7 +16,7 @@ import com.artunion.util.LogUtil;
 
 
 /**
- * CloudContext是整个项目的参数容器，所有前台到后台的的参数 或则后台到前台的参数都是通过此对象进行传递的，里面封装了很多实用的方法， 比如获取request的参数等等
+ * ArtUnionContext是整个项目的参数容器，所有前台到后台的的参数 或则后台到前台的参数都是通过此对象进行传递的，里面封装了很多实用的方法， 比如获取request的参数等等
  * 
  * @author CloudKing
  * @param <T>

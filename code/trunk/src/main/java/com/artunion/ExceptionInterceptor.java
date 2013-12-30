@@ -34,7 +34,7 @@ public class ExceptionInterceptor extends AbstractInterceptor {
             return result;
         } catch (JPAEventException e) {
             BaseAction<?> action = (BaseAction<?>) invocation.getAction();
-            action.getCloudContext().addErrorMsg(e.getMessage());
+            action.getArtunionContext().addErrorMsg(e.getMessage());
             LogUtil.error(e);
             return "jpaError";
         } catch (Exception e) {

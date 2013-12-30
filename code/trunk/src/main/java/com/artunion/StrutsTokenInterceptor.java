@@ -76,7 +76,7 @@ public class StrutsTokenInterceptor extends MethodFilterInterceptor {
      */
     protected String handleInvalidToken(ActionInvocation invocation) throws Exception {
         BaseAction<?> action = (BaseAction<?>) invocation.getAction();
-        action.getCloudContext().addErrorMsg("您已经提交过了，请勿重复提交表单");
+        action.getArtunionContext().addErrorMsg("您已经提交过了，请勿重复提交表单");
 //        String errorMessage = LocalizedTextUtil.findText(this.getClass(), "struts.messages.invalid.token", invocation
 //                .getInvocationContext().getLocale(),
 //                "数据重复提交，请返回后重试.", new Object[0]);

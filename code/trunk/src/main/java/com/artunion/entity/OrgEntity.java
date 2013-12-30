@@ -32,16 +32,15 @@ public class OrgEntity extends UserEntity {
     /**
      * 机构类型
      */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CAT_ID_")
-    private OrgCatEntity orgCat;
+    @Column(name = "ORG_TYPE_")
+    private Byte orgType;
 
-    public OrgCatEntity getOrgCat() {
-        return orgCat;
+    public Byte getOrgType() {
+        return orgType;
     }
 
-    public void setOrgCat(OrgCatEntity orgCat) {
-        this.orgCat = orgCat;
+    public void setOrgType(Byte orgType) {
+        this.orgType = orgType;
     }
 
     public String getAuthNum() {

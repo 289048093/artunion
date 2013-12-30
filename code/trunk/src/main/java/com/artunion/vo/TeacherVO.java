@@ -3,7 +3,6 @@
  */
 package com.artunion.vo;
 
-import com.artunion.entity.UserEntity;
 
 /**
  * 老师
@@ -11,7 +10,7 @@ import com.artunion.entity.UserEntity;
  * @author LiZhao
  * 
  */
-public class TeacherVO extends UserEntity {
+public class TeacherVO extends UserVO {
 
     /**
      * 

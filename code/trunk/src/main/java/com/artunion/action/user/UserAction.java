@@ -52,15 +52,6 @@ import com.artunion.vo.UserVO;
 		@Result(name = "register", type = "dispatcher", location = "/register/register.jsp"),
 		@Result(name = "center", type = "dispatcher", location = "/userCenter/userInfo.jsp") })
 public class UserAction extends BaseAction<UserVO> {
-	private static final String LOGINSUCCESS = "loginSuccess";
-	private static final String LOGINREDIRECT = "loginRedirect";
-	private static final String LOGOUT = "logout";
-	private static final String REGISTER = "register";
-	private static final String CARDUSERREGIST = "carduserRegist";
-	private static final String RESETPASSWORD = "resetPassword";
-	private static final String RESETPASSWORD_SUCCESS = "resetPasswordSuccess";
-	private static final String INIT_UPDATE_RESET_PASSWORD = "initUpdateResetPassword";
-	private static final String CENTER = "center";
 
 	/**
 	 * userService
@@ -145,18 +136,18 @@ public class UserAction extends BaseAction<UserVO> {
 		}
 		if (artunionContext.getSuccessIngoreWarn()) {
 			if (artunionContext.getBooleanParam("cardUserNoRegist")) {
-				return CARDUSERREGIST;
+				return JSON;
 			}
 			putLoginedUser(artunionContext.getLoginedUser());
 			String url = artunionContext.getStringParam("path").trim();
 			if (!StringUtil.isBlank(url) && !url.equals("null")) {
 				artunionContext.addParam("destPath", url.replace(getRequest()
 						.getContextPath(), ""));
-				return LOGINREDIRECT;
+				return JSON;
 			}
-			return LOGINSUCCESS;
+			return JSON;
 		} else {
-			return LOGIN;
+			return JSON;
 		}
 	}
 
@@ -175,7 +166,7 @@ public class UserAction extends BaseAction<UserVO> {
 		if (!artunionContext.getSuccessIngoreWarn()) {// 表单重复提交了
 			return JSON;
 		}
-		userService.addRegister(artunionContext);
+		userService.addUser(artunionContext);
 		return JSON;
 	}
 
@@ -187,7 +178,7 @@ public class UserAction extends BaseAction<UserVO> {
 	 */
 	public String logout() throws Exception {
 		getSession().invalidate();
-		return LOGOUT;
+		return JSON;
 	}
 
 	/**
@@ -221,7 +212,7 @@ public class UserAction extends BaseAction<UserVO> {
 	 */
 	public String initResetPassword() throws SQLException {
 		if (!artunionContext.getSuccessIngoreWarn()) {// 表单重复提交了
-			return RESETPASSWORD_SUCCESS;
+			return JSON;
 		}
 		artunionContext.addParam(Constant.VERIFY_CODE, getSession().getAttribute(
 				Constant.VERIFY_CODE));
@@ -231,8 +222,7 @@ public class UserAction extends BaseAction<UserVO> {
 				+ ":" + request.getServerPort() + path + "/";
 		artunionContext.addParam("basePath", basePath);
 		userService.addResetPassword(artunionContext);
-		return artunionContext.getSuccessIngoreWarn() ? RESETPASSWORD_SUCCESS
-				: RESETPASSWORD;
+		return JSON;
 	}
 
 	/**
@@ -264,7 +254,7 @@ public class UserAction extends BaseAction<UserVO> {
 		artunionContext.getVo().setHeadPic(realname);
 		userService.updateCenter(artunionContext);
 		userService.center(artunionContext);
-		return CENTER;
+		return JSON;
 	}
 
 	/**
@@ -280,7 +270,7 @@ public class UserAction extends BaseAction<UserVO> {
 
 	public String center() throws SQLException {
 		userService.center(artunionContext);
-		return CENTER;
+		return JSON;
 	}
 
 	/**
@@ -298,12 +288,12 @@ public class UserAction extends BaseAction<UserVO> {
 	 */
 	public String initUpdateResetPassword() throws SQLException {
 		userService.initUpdateResetPassword(artunionContext);
-		return INIT_UPDATE_RESET_PASSWORD;
+		return JSON;
 	}
 
 	public String resetPassword() throws SQLException {
 		userService.updateResetPassword(artunionContext);
-		return INIT_UPDATE_RESET_PASSWORD;
+		return JSON;
 	}
 
 	public void setUserService(UserService userService) {

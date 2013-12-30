@@ -23,11 +23,11 @@ public interface Constant {
     /**
      * 用户正常状态
      */
-    String USER_NORMAL_STATE = "1";
+    Byte USER_STATE_NORMAL = 1;
     /**
      * 用户删除状态
      */
-    String USER_DELETE_STATE = "0";
+    Byte USER_STATE_DELETE = 0;
     /**
      * 角色持久化 是
      */

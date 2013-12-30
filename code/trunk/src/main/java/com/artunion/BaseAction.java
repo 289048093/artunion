@@ -69,7 +69,7 @@ public abstract class BaseAction<T extends BaseVO> extends ActionSupport {
     protected static final String DOWNLOAD = "download";
 
     /**
-     * CloudContext上下文，用来存放所有请求和响应的容器
+     * ArtunionContext上下文，用来存放所有请求和响应的容器
      */
     protected ArtUnionContext<T> artunionContext = new ArtUnionContext<T>();
 
@@ -190,12 +190,8 @@ public abstract class BaseAction<T extends BaseVO> extends ActionSupport {
         return ServletActionContext.getRequest().getSession().getAttribute(name);
     }
 
-    /**
-     * 获取CloudContext
-     * 
-     * @return
-     */
-    public ArtUnionContext<T> getCloudContext() {
+    public ArtUnionContext<T> getArtunionContext() {
         return artunionContext;
     }
+
 }

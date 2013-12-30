@@ -16,8 +16,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.stereotype.Service;
 
-import com.artunion.BaseService;
 import com.artunion.ArtUnionContext;
+import com.artunion.BaseService;
 import com.artunion.LoginedUser;
 import com.artunion.dao.ResetUserPasswordDAO;
 import com.artunion.dao.RightsDAO;
@@ -41,7 +41,7 @@ public class UserService extends BaseService {
      * userDAO
      */
     @Resource
-    private UserDAO userDAO;
+    private UserDAO<UserEntity> userDAO;
     @Resource
     private RightsDAO rightsDAO;
     @Resource
@@ -97,24 +97,15 @@ public class UserService extends BaseService {
      * @throws SQLException
      * @throws Exception
      */
-    public void addRegister(ArtUnionContext<UserVO> artunionContext) throws SQLException {
+    public void addUser(ArtUnionContext<UserVO> artunionContext) throws SQLException {
         // 判断注册用户名是否已经存在
-
         UserEntity userEntity = userDAO.findUserByUsername(artunionContext.getVo().getUsername());
         if (userEntity == null) {
 
             userEntity = new UserEntity();
-            userEntity.setAddr(artunionContext.getVo().getAddr());
-            userEntity.setEmail(artunionContext.getVo().getEmail());
-            userEntity.setMobilePhone(artunionContext.getVo().getMobilePhone());
-            userEntity.setRealname(artunionContext.getVo().getRealname());
-            userEntity.setSex(artunionContext.getVo().getSex());
-            userEntity.setUsername(artunionContext.getVo().getUsername());
-            userEntity.setId(artunionContext.getVo().getId());
-            userEntity.setTelPhone(artunionContext.getVo().getTelPhone());
-            Date date = new Date();
-            userEntity.setAddDate(date);
-            userEntity.setStatus(Constant.USER_NORMAL_STATE);
+            BeanUtils.copyProperties(artunionContext.getVo(), userEntity);
+            userEntity.setAddDate(new Date());
+            userEntity.setStatus(Constant.USER_STATE_NORMAL);
             userEntity.setPassword(StringUtil.encrypt(artunionContext.getVo().getUsername(), artunionContext.getVo()
                     .getPassword()));
             userDAO.insert(userEntity);

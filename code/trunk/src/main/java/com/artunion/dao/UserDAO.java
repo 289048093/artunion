@@ -16,7 +16,7 @@ import com.artunion.entity.UserEntity;
  * @author CloudKing
  */
 @Repository("userDAO")
-public final class UserDAO extends BaseDAO<UserEntity> {
+public class UserDAO<E extends UserEntity> extends BaseDAO<UserEntity> {
     /**
      * 通过用户名获取用户 有就返回true
      * 
