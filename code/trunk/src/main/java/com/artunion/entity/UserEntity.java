@@ -28,7 +28,7 @@ import com.artunion.BaseEntity;
  * 
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "tb_user")
 public class UserEntity extends BaseEntity {
     /**
