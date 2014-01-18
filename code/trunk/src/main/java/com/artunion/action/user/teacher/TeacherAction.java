@@ -49,12 +49,15 @@ public class TeacherAction extends BaseAction<TeacherVO> {
     public String register() throws SQLException{
         if (StringUtil.isBlank(artunionContext.getVo().getUsername())) {
             artunionContext.addErrorMsg("用户名不能为空");
+            return JSON;
         }
         if (StringUtil.isBlank(artunionContext.getVo().getPassword())) {
             artunionContext.addErrorMsg("密码不能为空!");
+            return JSON;
         }
         if (StringUtil.isBlank(artunionContext.getVo().getRealname())) {
             artunionContext.addErrorMsg("姓名不能为空!");
+            return JSON;
         }
         teacherService.addTeacher(artunionContext);
         return JSON;
