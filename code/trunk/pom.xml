@@ -10,6 +10,8 @@
 
 	<properties>
 		<struts-version>2.1.8.1</struts-version>
+        <springframework.version>4.0.2.RELEASE</springframework.version>
+        <hibernate-version>4.3.4.Final</hibernate-version>
 		<!-- 配置文件修改存放目录 -->
 		<config-processor-dir>temp</config-processor-dir>
 	</properties>
@@ -18,79 +20,30 @@
 	<!-- 包依赖 -->
 	<dependencies>
 		<!-- spring -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring</artifactId>
-			<version>2.5.6</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-			<version>1.6.2</version>
-			<scope>runtime</scope>
-		</dependency>
-		<!-- spring over -->
-
-		<!-- quartz start  -->
-		<dependency>
-			<groupId>opensymphony</groupId>
-			<artifactId>quartz</artifactId>
-			<version>1.6.3</version>
-		</dependency>
-		<!-- quartz end -->
-
-		<!-- hibernate -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>3.3.2.GA</version>
-		</dependency>
-
-		<dependency>
-			<groupId>c3p0</groupId>
-			<artifactId>c3p0</artifactId>
-			<version>0.9.1</version>
-			<scope>runtime</scope>
-		</dependency>
-		<!-- hibernate over -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${springframework.version}</version>
+            <exclusions>
+                <!-- Exclude Commons Logging in favor of SLF4j -->
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
 
 
-		<!-- struts -->
-		<dependency>
-			<groupId>org.apache.struts</groupId>
-			<artifactId>struts2-core</artifactId>
-			<version>${struts-version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.struts</groupId>
-			<artifactId>struts2-json-plugin</artifactId>
-			<version>${struts-version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.struts</groupId>
-			<artifactId>struts2-spring-plugin</artifactId>
-			<version>${struts-version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.struts</groupId>
-			<artifactId>struts2-convention-plugin</artifactId>
-			<version>${struts-version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<!-- struts over -->
-
-		<!-- sitemesh -->
-		<dependency>
-			<groupId>opensymphony</groupId>
-			<artifactId>sitemesh</artifactId>
-			<version>2.4.2</version>
-			<scope>runtime</scope>
-		</dependency>
-		<!-- sitemesh over -->
 
 		<!-- mysql -->
 		<dependency>
@@ -108,21 +61,6 @@
 			<version>1.0</version>
 		</dependency> -->
 		<!-- QRCode end -->
-
-		<!-- testng -->
-		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>6.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-		  <groupId>junit</groupId>
-		  <artifactId>junit</artifactId>
-		  <version>4.4</version>
-		  <scope>test</scope>
-		</dependency>
-		<!-- testng over -->
 
 
 		<!-- easymock 
@@ -351,6 +289,9 @@
 
 
 	<build>
+        <filters>
+            <filter>src/main/filter/dev.properties</filter>
+        </filters>
 		<finalName>artunion</finalName>
 		<outputDirectory>
 			src/main/webapp/WEB-INF/classes
@@ -410,7 +351,7 @@
 					<dependency>
 						<groupId>xerces</groupId>
 						<artifactId>xercesImpl</artifactId>
-						<version>2.6.2</version>
+						<version>2.9.1</version>
 						<scope>compile</scope>
 					</dependency>
 				</dependencies>
@@ -485,27 +426,49 @@
 
 	</build>
 
+    <profiles>
+        <!--生产环境部署通用打包 profile-->
+        <profile>
+            <id>prod</id>
+            <build>
+                <filters>
+                    <filter>src/main/filter/prod.properties</filter>
+                </filters>
+            </build>
+        </profile>
+        <!--日常部署通用打包 profile-->
+        <profile>
+            <id>daily</id>
+            <build>
+                <filters>
+                    <filter>src/main/filter/daily.properties</filter>
+                </filters>
+            </build>
+        </profile>
+    </profiles>
 
-	<!--解决Missing artifact com.sun:tools:jar:1.5.0:system 问题 必须配置环境变量-->
-	<profiles>
-		<profile>
-			<id>default-tools.jar</id>
-			<activation>
-				<property>
-					<name>java.vendor</name>
-					<value>Sun Microsystems Inc.</value>
-				</property>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>com.sun</groupId>
-					<artifactId>tools</artifactId>
-					<version>1.6.0</version>
-					<scope>system</scope>
-					<systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
-				</dependency>
-			</dependencies>
-		</profile>
-	</profiles>
+
+
+    <!--解决Missing artifact com.sun:tools:jar:1.5.0:system 问题 必须配置环境变量
+    <profiles>
+        <profile>
+            <id>default-tools.jar</id>
+            <activation>
+                <property>
+                    <name>java.vendor</name>
+                    <value>Sun Microsystems Inc.</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.sun</groupId>
+                    <artifactId>tools</artifactId>
+                    <version>1.6.0</version>
+                    <scope>system</scope>
+                    <systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>    -->
 
 </project>
